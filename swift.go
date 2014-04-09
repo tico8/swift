@@ -375,11 +375,11 @@ func (c *Connection) Call(targetUrl string, p RequestOpts) (resp *http.Response,
 			for k, v := range p.Headers {
 				req.Header.Add(k, v)
 				// WAR of 503 error
-				if (k == "Content-Length") {
+				if k == "Content-Length" {
 					var cl int64
 					cl, err = strconv.ParseInt(v, 10, 64)
 					if err == nil {
-						req.ContentLength = cl;
+						req.ContentLength = cl
 					}
 				}
 			}
@@ -1320,8 +1320,9 @@ func (c *Connection) ObjectOpen(container string, objectName string, checkHash b
 		file.body = io.TeeReader(resp.Body, file.hash)
 	}
 	// Read Content-Length
-	file.length, err = getInt64FromHeader(resp, "Content-Length")
-	file.lengthOk = (err == nil)
+	// WAR no Content-Length
+	//file.length, err = getInt64FromHeader(resp, "Content-Length")
+	//file.lengthOk = (err == nil)
 	return
 }
 
