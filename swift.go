@@ -380,7 +380,6 @@ func (c *Connection) Call(targetUrl string, p RequestOpts) (resp *http.Response,
 					cl, err = strconv.ParseInt(v, 10, 64)
 					if err == nil {
 						req.ContentLength = cl;
-						fmt.Println("hoge");
 					}
 				}
 			}
